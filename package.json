@@ -1,10 +1,14 @@
 {
   "name": "grocery-management",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "QuestionPro Assignment",
+  "author": "Narendra Gardaswar",
   "private": true,
   "license": "UNLICENSED",
+  "engines": {
+    "node": "^22.11.0",
+    "npm": "^10.9.0"
+  },
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
