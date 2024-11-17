@@ -17,10 +17,12 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+    "strict": true,
     "paths": {
       "@core/*": ["./src/core/*"],
       "@app/*":["./src/app/*"],
       "@auth/*": ["./src/core/auth/*"],
+      "@database/*": ["./src/core/database/*"],
     }  
   }
 }

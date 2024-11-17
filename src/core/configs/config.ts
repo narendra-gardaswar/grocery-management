@@ -23,6 +23,7 @@ export enum EnvironmentVariables {
   PORT = 'PORT',
   JWT_SECRET = 'JWT_SECRET',
   API_KEY = 'API_KEY',
+  POSTGRES_URL = 'POSTGRES_URL',
 }
 
 export class EnvironmentVariable {
@@ -41,6 +42,10 @@ export class EnvironmentVariable {
   @IsString()
   @IsNotEmpty()
   API_KEY: string;
+
+  @IsString()
+  @IsNotEmpty()
+  POSTGRES_URL: string;
 }
 
 export function validate(config: Record<string, unknown>): EnvironmentVariable {
