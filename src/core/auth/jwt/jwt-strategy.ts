@@ -3,9 +3,12 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { EnvironmentVariables } from '@core/configs/config';
+import { UserRole } from '@users/entities/users.entity';
 
 export class LoggedInUser {
   id: string;
+  role: UserRole;
+  sub: string;
   iat: number;
   exp: number;
 }

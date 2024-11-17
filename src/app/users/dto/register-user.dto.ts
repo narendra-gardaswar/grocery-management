@@ -17,6 +17,10 @@ export class RegisterUserBody {
 
 export class RegisterUserResponse {
   id: string;
+  role: UserRole;
+  access_token: string;
+  token_type: string;
+  expires_in: number;
 }
 
 export class SaveUserInput {

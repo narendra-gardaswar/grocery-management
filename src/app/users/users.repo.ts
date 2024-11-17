@@ -4,6 +4,7 @@ import { DRIZZLE_PROVIDER } from '@core/database';
 import { users } from './schema/users.schema';
 import { SaveUserInput } from './dto/register-user.dto';
 import { UserEntity } from './entities/users.entity';
+import { eq } from 'drizzle-orm';
 
 export class UsersRepo {
   constructor(
@@ -15,6 +16,14 @@ export class UsersRepo {
 
   async createUser(input: SaveUserInput): Promise<UserEntity> {
     const [user] = await this.db.insert(users).values(input).returning();
+    return user;
+  }
+
+  async getUserByEmail(email: string): Promise<UserEntity | null> {
+    const [user] = await this.db
+      .select()
+      .from(users)
+      .where(eq(users.email, email));
     return user;
   }
 }

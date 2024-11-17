@@ -19,11 +19,12 @@
     "noFallthroughCasesInSwitch": false,
     "strict": false,
     "paths": {
+      "@users/*":["./src/app/users/*"],
       "@core/*": ["./src/core/*"],
       "@app/*":["./src/app/*"],
       "@auth/*": ["./src/core/auth/*"],
       "@database/*": ["./src/core/database/*"],
-      "@users/*":["./src/app/users/*"],
+      
     }  
   }
 }
