@@ -3,6 +3,8 @@ import { Environment, EnvironmentVariables } from '@core/configs/config';
 import { ConfigService } from '@nestjs/config';
 import helmet from 'helmet';
 import { ValidationPipe } from '@nestjs/common';
+import { ApiGuard } from '@core/guards/api.guard';
+import { AuthService } from '@core/auth/auth.service';
 
 export default async function (
   app: NestExpressApplication,
@@ -26,4 +28,7 @@ export default async function (
       whitelist: true,
     }),
   );
+
+  const authService = app.get(AuthService);
+  app.useGlobalGuards(new ApiGuard(authService));
 }

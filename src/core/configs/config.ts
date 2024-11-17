@@ -22,7 +22,7 @@ export enum EnvironmentVariables {
   NODE_ENV = 'NODE_ENV',
   PORT = 'PORT',
   JWT_SECRET = 'JWT_SECRET',
-  API_TOKEN = 'API_TOKEN',
+  API_KEY = 'API_KEY',
 }
 
 export class EnvironmentVariable {
@@ -40,7 +40,7 @@ export class EnvironmentVariable {
 
   @IsString()
   @IsNotEmpty()
-  API_TOKEN: string;
+  API_KEY: string;
 }
 
 export function validate(config: Record<string, unknown>): EnvironmentVariable {

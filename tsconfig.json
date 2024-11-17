@@ -20,6 +20,7 @@
     "paths": {
       "@core/*": ["./src/core/*"],
       "@app/*":["./src/app/*"],
+      "@auth/*": ["./src/core/auth/*"],
     }  
   }
 }
