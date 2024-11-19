@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { RolesGuard } from '@core/guards/roles.guard';
 import { USER_ROLE } from '@users/entities/users.entity';
@@ -10,6 +18,11 @@ import {
   GetProductsListBody,
   GetProductsListResponse,
 } from './dto/get-products-list.dto';
+import {
+  UpdateProductBody,
+  UpdateProductParams,
+  UpdateProductResponse,
+} from './dto/update-product.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -29,6 +42,16 @@ export class ProductsController {
     @Body() body: GetProductsListBody,
   ): Promise<GetProductsListResponse> {
     return await this.productsService.getProductsList(body);
+  }
+
+  @Roles(USER_ROLE.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Put('/update/:id')
+  async deleteProduct(
+    @Body() body: UpdateProductBody,
+    @Param() param: UpdateProductParams,
+  ): Promise<UpdateProductResponse> {
+    return await this.productsService.updateProduct(param.id, body);
   }
 
   @Roles(USER_ROLE.ADMIN)

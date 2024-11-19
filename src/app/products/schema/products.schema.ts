@@ -10,7 +10,7 @@ import {
 
 export const products = pgTable(TableName.PRODUCTS, {
   id: text('id').primaryKey().notNull().unique(),
-  name: text('name').unique().notNull(),
+  name: text('name').notNull(),
   price: decimal('price').default('0').notNull(),
   stockQuantity: integer('stock_quantity').default(0).notNull(),
   isDeleted: boolean('is_deleted').default(false).notNull(),
@@ -19,3 +19,5 @@ export const products = pgTable(TableName.PRODUCTS, {
     .$onUpdate(() => new Date())
     .notNull(),
 });
+
+export type Product = typeof products.$inferSelect;

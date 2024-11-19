@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import { DRIZZLE_PROVIDER } from '@core/database';
-import { products } from './schema/products.schema';
+import { Product, products } from './schema/products.schema';
 import { SaveProductInput } from './dto/add-product.dto';
 import { ProductEntity } from './entities/products.entity';
 import { eq, and, count, ilike, asc } from 'drizzle-orm';
@@ -55,5 +55,20 @@ export class ProductsRepo {
       productsList,
       total,
     };
+  }
+
+  async updateProduct(
+    prouctId: string,
+    updateProduct: Partial<Product>,
+  ): Promise<ProductEntity | undefined> {
+    const fieldsToUpdate = {
+      ...updateProduct,
+    };
+    const [updatedProduct] = await this.db
+      .update(products)
+      .set(fieldsToUpdate)
+      .where(eq(products.id, prouctId))
+      .returning();
+    return updatedProduct;
   }
 }

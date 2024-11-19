@@ -11,6 +11,10 @@ import {
   GetProductsListBody,
   GetProductsListResponse,
 } from './dto/get-products-list.dto';
+import {
+  UpdateProductBody,
+  UpdateProductResponse,
+} from './dto/update-product.dto';
 
 @Injectable()
 export class ProductsService {
@@ -58,6 +62,21 @@ export class ProductsService {
       totalCount: total,
       limit,
       page,
+    };
+  }
+
+  async updateProduct(
+    id: string,
+    body: UpdateProductBody,
+  ): Promise<UpdateProductResponse> {
+    const product = await this.productsRepo.getProductById(id);
+
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+    await this.productsRepo.updateProduct(id, body);
+    return {
+      message: 'Product updated successfully',
     };
   }
 }
