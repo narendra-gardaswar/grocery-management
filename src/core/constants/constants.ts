@@ -4,4 +4,5 @@ export enum AuthGuardType {
 
 export enum TableName {
   USERS = 'users',
+  PRODUCTS = 'products',
 }
