@@ -15,6 +15,7 @@ import {
   UpdateProductBody,
   UpdateProductResponse,
 } from './dto/update-product.dto';
+import { DeleteProductResponse } from './dto/delete-product.dto';
 
 @Injectable()
 export class ProductsService {
@@ -69,14 +70,26 @@ export class ProductsService {
     id: string,
     body: UpdateProductBody,
   ): Promise<UpdateProductResponse> {
-    const product = await this.productsRepo.getProductById(id);
+    const product = await this.productsRepo.updateProduct(id, body);
 
     if (!product) {
       throw new NotFoundException('Product not found');
     }
-    await this.productsRepo.updateProduct(id, body);
     return {
       message: 'Product updated successfully',
+    };
+  }
+
+  async deleteProduct(id: string): Promise<DeleteProductResponse> {
+    const product = await this.productsRepo.updateProduct(id, {
+      isDeleted: true,
+    });
+
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+    return {
+      message: 'Product Deleted successfully',
     };
   }
 }

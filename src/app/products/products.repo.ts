@@ -67,7 +67,7 @@ export class ProductsRepo {
     const [updatedProduct] = await this.db
       .update(products)
       .set(fieldsToUpdate)
-      .where(eq(products.id, prouctId))
+      .where(and(eq(products.id, prouctId), eq(products.isDeleted, false)))
       .returning();
     return updatedProduct;
   }

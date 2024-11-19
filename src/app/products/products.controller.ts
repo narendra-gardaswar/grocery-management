@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -23,6 +24,10 @@ import {
   UpdateProductParams,
   UpdateProductResponse,
 } from './dto/update-product.dto';
+import {
+  DeleteProductParams,
+  DeleteProductResponse,
+} from './dto/delete-product.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -47,11 +52,20 @@ export class ProductsController {
   @Roles(USER_ROLE.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Put('/update/:id')
-  async deleteProduct(
+  async updateProduct(
     @Body() body: UpdateProductBody,
     @Param() param: UpdateProductParams,
   ): Promise<UpdateProductResponse> {
     return await this.productsService.updateProduct(param.id, body);
+  }
+
+  @Roles(USER_ROLE.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Delete('/:id')
+  async deleteProduct(
+    @Param() param: DeleteProductParams,
+  ): Promise<DeleteProductResponse> {
+    return await this.productsService.deleteProduct(param.id);
   }
 
   @Roles(USER_ROLE.ADMIN)
