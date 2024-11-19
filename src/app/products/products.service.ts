@@ -16,6 +16,10 @@ import {
   UpdateProductResponse,
 } from './dto/update-product.dto';
 import { DeleteProductResponse } from './dto/delete-product.dto';
+import {
+  GetUserProductsListBody,
+  GetUserProductsListResponse,
+} from './dto/get-user-products-list.dto';
 
 @Injectable()
 export class ProductsService {
@@ -90,6 +94,24 @@ export class ProductsService {
     }
     return {
       message: 'Product Deleted successfully',
+    };
+  }
+
+  async getUserProductsList(
+    body: GetUserProductsListBody,
+  ): Promise<GetUserProductsListResponse> {
+    const { search, limit, page } = body;
+    const { productsList, total } = await this.productsRepo.getProductsList(
+      limit,
+      page,
+      search,
+    );
+    const hasMore = page * limit < total;
+
+    return {
+      products: productsList,
+      hasMore,
+      totalCount: total,
     };
   }
 }

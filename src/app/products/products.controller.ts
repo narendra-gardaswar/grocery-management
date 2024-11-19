@@ -28,6 +28,10 @@ import {
   DeleteProductParams,
   DeleteProductResponse,
 } from './dto/delete-product.dto';
+import {
+  GetUserProductsListBody,
+  GetUserProductsListResponse,
+} from './dto/get-user-products-list.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -47,6 +51,18 @@ export class ProductsController {
     @Body() body: GetProductsListBody,
   ): Promise<GetProductsListResponse> {
     return await this.productsService.getProductsList(body);
+  }
+
+  /**
+   * @description Get user products list for user (assuming user is using mobile app)
+   */
+  @Roles(USER_ROLE.USER)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Get('/list-user')
+  async getUserProductsList(
+    @Body() body: GetUserProductsListBody,
+  ): Promise<GetUserProductsListResponse> {
+    return await this.productsService.getUserProductsList(body);
   }
 
   @Roles(USER_ROLE.ADMIN)
