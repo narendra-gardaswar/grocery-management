@@ -1,10 +1,11 @@
-import { UserEntity } from '@users/entities/users.entity';
+import { UserEntity, UserRole } from '@users/entities/users.entity';
 import { EnvironmentVariables } from '@core/configs/config';
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UserTokens } from './dto/auth.dto';
+import { LoggedInUser } from './jwt/jwt-strategy';
 
 @Injectable()
 export class AuthService {
@@ -60,5 +61,12 @@ export class AuthService {
       token_type: 'Bearer',
       expires_in: expiration,
     };
+  }
+
+  validateRoles(user: LoggedInUser, roles: UserRole[]): boolean {
+    if (!roles.includes(user.role)) {
+      throw new ForbiddenException('Access Denied');
+    }
+    return true;
   }
 }
