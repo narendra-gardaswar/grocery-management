@@ -11,7 +11,7 @@ import {
 export const products = pgTable(TableName.PRODUCTS, {
   id: text('id').primaryKey().notNull().unique(),
   name: text('name').unique().notNull(),
-  price: decimal('price').notNull(),
+  price: decimal('price').default('0').notNull(),
   stockQuantity: integer('stock_quantity').default(0).notNull(),
   isDeleted: boolean('is_deleted').default(false).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),

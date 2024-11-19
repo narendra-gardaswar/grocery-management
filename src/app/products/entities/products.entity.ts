@@ -1,8 +1,8 @@
-export class ProductsEntity {
+export class ProductEntity {
   id: string;
   name: string;
   price: string;
-  stockQuantity: string;
+  stockQuantity: number;
   isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
