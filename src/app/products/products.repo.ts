@@ -4,6 +4,7 @@ import { DRIZZLE_PROVIDER } from '@core/database';
 import { products } from './schema/products.schema';
 import { SaveProductInput } from './dto/add-product.dto';
 import { ProductEntity } from './entities/products.entity';
+import { eq, and } from 'drizzle-orm';
 
 export class ProductsRepo {
   constructor(
@@ -15,6 +16,14 @@ export class ProductsRepo {
 
   async addProduct(input: SaveProductInput): Promise<ProductEntity> {
     const [product] = await this.db.insert(products).values(input).returning();
+    return product;
+  }
+
+  async getProductById(id: string): Promise<ProductEntity | null> {
+    const [product] = await this.db
+      .select()
+      .from(products)
+      .where(and(eq(products.id, id), eq(products.isDeleted, false)));
     return product;
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ProductsRepo } from './products.repo';
 import {
   AddProductBody,
@@ -6,6 +6,7 @@ import {
   SaveProductInput,
 } from './dto/add-product.dto';
 import { ulid } from 'ulid';
+import { GetProductResponse } from './dto/get-product.dto';
 
 @Injectable()
 export class ProductsService {
@@ -20,6 +21,18 @@ export class ProductsService {
 
     return {
       message: 'Product added successfully',
+    };
+  }
+
+  async getProduct(id: string): Promise<GetProductResponse> {
+    const product = await this.productsRepo.getProductById(id);
+
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+
+    return {
+      product,
     };
   }
 }
