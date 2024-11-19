@@ -34,7 +34,13 @@ export class UsersRepo {
     const [user] = await this.db
       .select()
       .from(users)
-      .where(and(eq(users.email, email), eq(users.role, role)));
+      .where(
+        and(
+          eq(users.email, email),
+          eq(users.role, role),
+          eq(users.isDeleted, false),
+        ),
+      );
     return user;
   }
 }
