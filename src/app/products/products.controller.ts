@@ -6,6 +6,10 @@ import { Roles } from '@core/decorators';
 import { JwtAuthGuard } from '@core/guards/jwt-auth.guard';
 import { AddProductBody, AddProductResponse } from './dto/add-product.dto';
 import { GetProductParams, GetProductResponse } from './dto/get-product.dto';
+import {
+  GetProductsListBody,
+  GetProductsListResponse,
+} from './dto/get-products-list.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -16,6 +20,15 @@ export class ProductsController {
   @Post('/add')
   async addProduct(@Body() body: AddProductBody): Promise<AddProductResponse> {
     return await this.productsService.addProduct(body);
+  }
+
+  @Roles(USER_ROLE.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Get('/list')
+  async getProductsList(
+    @Body() body: GetProductsListBody,
+  ): Promise<GetProductsListResponse> {
+    return await this.productsService.getProductsList(body);
   }
 
   @Roles(USER_ROLE.ADMIN)

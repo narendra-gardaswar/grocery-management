@@ -7,6 +7,10 @@ import {
 } from './dto/add-product.dto';
 import { ulid } from 'ulid';
 import { GetProductResponse } from './dto/get-product.dto';
+import {
+  GetProductsListBody,
+  GetProductsListResponse,
+} from './dto/get-products-list.dto';
 
 @Injectable()
 export class ProductsService {
@@ -33,6 +37,27 @@ export class ProductsService {
 
     return {
       product,
+    };
+  }
+
+  async getProductsList(
+    body: GetProductsListBody,
+  ): Promise<GetProductsListResponse> {
+    const { limit, page, search } = body;
+    const { productsList, total } = await this.productsRepo.getProductsList(
+      limit,
+      page,
+      search,
+    );
+
+    const totalPages = Math.ceil(total / limit);
+
+    return {
+      products: productsList,
+      totalPages,
+      totalCount: total,
+      limit,
+      page,
     };
   }
 }
