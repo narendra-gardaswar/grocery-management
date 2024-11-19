@@ -3,8 +3,8 @@ import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import { DRIZZLE_PROVIDER } from '@core/database';
 import { users } from './schema/users.schema';
 import { SaveUserInput } from './dto/register-user.dto';
-import { UserEntity } from './entities/users.entity';
-import { eq } from 'drizzle-orm';
+import { UserEntity, UserRole } from './entities/users.entity';
+import { eq, and } from 'drizzle-orm';
 
 export class UsersRepo {
   constructor(
@@ -24,6 +24,17 @@ export class UsersRepo {
       .select()
       .from(users)
       .where(eq(users.email, email));
+    return user;
+  }
+
+  async getUserByEmailAndRole(
+    email: string,
+    role: UserRole,
+  ): Promise<UserEntity | null> {
+    const [user] = await this.db
+      .select()
+      .from(users)
+      .where(and(eq(users.email, email), eq(users.role, role)));
     return user;
   }
 }

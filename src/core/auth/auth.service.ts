@@ -31,6 +31,10 @@ export class AuthService {
     return passwordHash;
   }
 
+  compareHash(data: string, hash: string): boolean {
+    return bcrypt.compareSync(data, hash);
+  }
+
   private async getAccessToken(
     user: UserEntity,
     expiration: number,

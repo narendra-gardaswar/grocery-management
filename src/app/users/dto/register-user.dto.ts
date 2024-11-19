@@ -7,9 +7,11 @@ export class RegisterUserBody {
   @IsEmail()
   @NormalizeEmail()
   email: string;
+
   @IsNotEmpty()
   @IsString()
   password: string;
+
   @IsNotEmpty()
   @IsString()
   fullName: string;
@@ -28,5 +30,5 @@ export class SaveUserInput {
   role: UserRole;
   email: string;
   password: string;
-  full_name: string;
+  fullName: string;
 }

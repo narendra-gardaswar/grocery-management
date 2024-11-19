@@ -4,6 +4,7 @@ import {
   RegisterUserBody,
   RegisterUserResponse,
 } from './dto/register-user.dto';
+import { LoginUserBody, LoginUserResponse } from './dto/login-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -14,5 +15,10 @@ export class UsersController {
     @Body() body: RegisterUserBody,
   ): Promise<RegisterUserResponse> {
     return await this.usersService.registerUser(body);
+  }
+
+  @Post('/login')
+  async loginUser(@Body() body: LoginUserBody): Promise<LoginUserResponse> {
+    return await this.usersService.loginUser(body);
   }
 }
