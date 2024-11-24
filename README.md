@@ -38,17 +38,10 @@ To set up and run the application on your local machine, follow these steps:
 
 You can also run the application within a Docker container by following these steps:
 
-1. **Build Docker Image**
-   Build the Docker image for the application:
-
+1. **Build and Run Docker Container**
+   With the following command :
    ```
-   docker build -t grocery-api .
-   ```
-
-2. **Run Docker Container**
-   With the following command Run Docker Container :
-   ```
-   docker run -p 4001:4001 grocery-api grocery-api
+   docker compose up
    ```
 
 The application will be accessible at [http://localhost:4001](http://localhost:4001)
