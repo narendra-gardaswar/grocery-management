@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
@@ -16,7 +17,7 @@ import { JwtAuthGuard } from '@core/guards/jwt-auth.guard';
 import { AddProductBody, AddProductResponse } from './dto/add-product.dto';
 import { GetProductParams, GetProductResponse } from './dto/get-product.dto';
 import {
-  GetProductsListBody,
+  GetProductsListQuery,
   GetProductsListResponse,
 } from './dto/get-products-list.dto';
 import {
@@ -29,7 +30,7 @@ import {
   DeleteProductResponse,
 } from './dto/delete-product.dto';
 import {
-  GetUserProductsListBody,
+  GetUserProductsListQuery,
   GetUserProductsListResponse,
 } from './dto/get-user-products-list.dto';
 
@@ -48,9 +49,9 @@ export class ProductsController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get('/list')
   async getProductsList(
-    @Body() body: GetProductsListBody,
+    @Query() query: GetProductsListQuery,
   ): Promise<GetProductsListResponse> {
-    return await this.productsService.getProductsList(body);
+    return await this.productsService.getProductsList(query);
   }
 
   /**
@@ -60,9 +61,9 @@ export class ProductsController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get('/list-user')
   async getUserProductsList(
-    @Body() body: GetUserProductsListBody,
+    @Query() query: GetUserProductsListQuery,
   ): Promise<GetUserProductsListResponse> {
-    return await this.productsService.getUserProductsList(body);
+    return await this.productsService.getUserProductsList(query);
   }
 
   @Roles(USER_ROLE.ADMIN)

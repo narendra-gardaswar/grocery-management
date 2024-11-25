@@ -8,7 +8,7 @@ import {
 import { ulid } from 'ulid';
 import { GetProductResponse } from './dto/get-product.dto';
 import {
-  GetProductsListBody,
+  GetProductsListQuery,
   GetProductsListResponse,
 } from './dto/get-products-list.dto';
 import {
@@ -17,7 +17,7 @@ import {
 } from './dto/update-product.dto';
 import { DeleteProductResponse } from './dto/delete-product.dto';
 import {
-  GetUserProductsListBody,
+  GetUserProductsListQuery,
   GetUserProductsListResponse,
 } from './dto/get-user-products-list.dto';
 
@@ -50,9 +50,9 @@ export class ProductsService {
   }
 
   async getProductsList(
-    body: GetProductsListBody,
+    query: GetProductsListQuery,
   ): Promise<GetProductsListResponse> {
-    const { limit, page, search } = body;
+    const { limit, page, search } = query;
     const { productsList, total } = await this.productsRepo.getProductsList(
       limit,
       page,
@@ -98,9 +98,9 @@ export class ProductsService {
   }
 
   async getUserProductsList(
-    body: GetUserProductsListBody,
+    query: GetUserProductsListQuery,
   ): Promise<GetUserProductsListResponse> {
-    const { search, limit, page } = body;
+    const { search, limit, page } = query;
     const { productsList, total } = await this.productsRepo.getProductsList(
       limit,
       page,

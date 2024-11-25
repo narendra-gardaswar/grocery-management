@@ -1,13 +1,16 @@
 import { IsNumber, IsOptional, IsString, Min } from 'class-validator';
 import { ProductEntity } from '../entities/products.entity';
+import { StringToNumber } from '@core/decorators';
 
-export class GetProductsListBody {
+export class GetProductsListQuery {
   @IsNumber()
+  @StringToNumber()
   @IsOptional()
   @Min(1)
   page = 1;
 
   @IsNumber()
+  @StringToNumber()
   @IsOptional()
   limit = 16;
 
