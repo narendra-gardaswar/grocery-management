@@ -1,6 +1,7 @@
 import { TableName } from '@core/constants';
 import { users } from '@users/schema/users.schema';
 import { pgTable, text, timestamp, decimal, pgEnum } from 'drizzle-orm/pg-core';
+import { ORDER_STATUS } from '../entities/orders.entity';
 
 export const OrderStatus = pgEnum('status', [
   'PENDING',
@@ -16,7 +17,7 @@ export const orders = pgTable(TableName.ORDERS, {
     .references(() => users.id)
     .notNull(),
   totalPrice: decimal('total_price').notNull(),
-  status: OrderStatus('status').default('CONFIRMED').notNull(),
+  status: OrderStatus('status').default(ORDER_STATUS.CONFIRMED).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at')
     .$onUpdate(() => new Date())
