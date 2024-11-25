@@ -24,7 +24,8 @@
       "@app/*":["./src/app/*"],
       "@auth/*": ["./src/core/auth/*"],
       "@database/*": ["./src/core/database/*"],
-      
+      "@orders/*":["./src/app/orders/*"],
+      "@products/*":["./src/app/products/*"],
     }  
   }
 }

@@ -3,13 +3,6 @@ export const USER_ROLE = {
   ADMIN: 'ADMIN',
 } as const;
 
-export const CHAT_STATUS = {
-  INACTIVE: 'INACTIVE',
-  ACTIVE: 'ACTIVE',
-  RESOLVED: 'RESOLVED',
-  DISABLE: 'DISABLE',
-} as const;
-
 export type ObjectValue<T> = T[keyof T];
 export type UserRole = ObjectValue<typeof USER_ROLE>;
 
